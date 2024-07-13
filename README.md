@@ -95,20 +95,6 @@ function woobase_register_images_field()
 add_action("rest_api_init", "woobase_register_images_field");
 ```
 
-### 4. Enqueuing Custom Scripts
-
-The plugin demonstrates how to add custom JavaScript to WooBase pages:
-
-```php
-function woobase_load_custom_script()
-{
-  $url = plugins_url("woobase-plugin-example/");
-  wp_enqueue_script("woobase-plugin", $url . "assets/js/woobase-plugin.js", [], 1, ["in_footer" => true]);
-}
-
-add_action("woobase/app/start", "woobase_load_custom_script");
-```
-
 ## Customization
 
 Feel free to modify the provided examples to suit your specific needs. This plugin serves as a starting point for your own WooBase extensions.
