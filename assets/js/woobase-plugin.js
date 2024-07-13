@@ -1,7 +1,6 @@
 const { __ } = wp.i18n;
-const { defineComponent } = window.woobase.functions;
 
-const ExampleComponent = defineComponent({
+const ExampleComponent = {
   name: "WooBaseCustom",
   model: {
     prop: "modelValue",
@@ -27,7 +26,7 @@ const ExampleComponent = defineComponent({
 		<input class="px-2 py-2 border border-zinc-200 dark:border-zinc-700 rounded-lg w-full transition-all outline outline-transparent outline-offset-[-2px] focus:outline-indigo-300 dark:focus:outline-indigo-700 focus:shadow-xs text-sm dark:bg-transparent text-zinc-700 dark:text-zinc-300 col-span-2" type="text" :value="modelValue.woobase_custom_text" @input="updateValue">
 	  </div>
 	  `,
-});
+};
 
 /**
  * Remove linked products section from product edit
