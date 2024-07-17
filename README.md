@@ -4,7 +4,7 @@
 
 This plugin serves as an example of how to extend and customize the WooBase plugin for WooCommerce. It demonstrates various techniques for adding custom fields, modifying the product edit interface, and extending the WooCommerce REST API.
 
-**Note: This plugin requires the WooBase plugin v1.0.8 and up, which must be purchased and installed separately.**
+**Note: This plugin requires the WooBase plugin v1.0.9 and up, which must be purchased and installed separately.**
 
 ## Prerequisites
 

@@ -27,7 +27,8 @@ function woobase_register_images_field()
 /**
  * Returns a custom meta string
  *
- * @return string
+ * @param array $object The object data.
+ * @return string The sanitized custom meta value.
  */
 function woobase_get_field($object)
 {
@@ -36,9 +37,11 @@ function woobase_get_field($object)
 }
 
 /**
- * Returns a custom meta string
+ * Updates a custom meta string
  *
- * @return string
+ * @param string $value The value to update.
+ * @param WP_Post $object The post object.
+ * @return void
  */
 function woobase_update_field($value, $object)
 {
@@ -49,9 +52,9 @@ function woobase_update_field($value, $object)
 add_action("rest_api_init", "woobase_register_images_field");
 
 /**
- * Returns a custom meta string
+ * Enqueues a custom script
  *
- * @return string
+ * @return void
  */
 function woobase_load_custom_script()
 {
@@ -62,3 +65,32 @@ function woobase_load_custom_script()
 
 // Tap into woobase action that will trigger on front end and backend woobase page
 add_action("woobase/app/start", "woobase_load_custom_script");
+add_action("woobase/app/start", "woobase_load_custom_styles");
+
+/**
+ * Enqueues custom styles and adds a filter for WooBase shadow DOM styles
+ *
+ * @return void
+ */
+function woobase_load_custom_styles()
+{
+  // Get plugin url
+  $url = plugins_url("woobase-plugin-example/");
+  $style = $url . "/assets/css/style.css";
+  wp_enqueue_style("woobase-custom-styles", $style, []);
+
+  // Woobase uses the shadow dom so we need to tell it what styles to inject into it.
+  add_filter("woobase/app/styles", "woobase_push_styles_to_app");
+}
+
+/**
+ * Adds custom style sheet to WooBase shadow DOM
+ *
+ * @param array $style_tags Array of style tags.
+ * @return array Modified array of style tags.
+ */
+function woobase_push_styles_to_app($style_tags)
+{
+  // Add style id used wp_enqueue_script
+  return [...$style_tags, "woobase-custom-styles"];
+}
