@@ -1,20 +1,20 @@
-# WooBase Example Plugin
+# VendBase Example Plugin
 
 ## Description
 
-This plugin serves as an example of how to extend and customize the WooBase plugin for WooCommerce. It demonstrates various techniques for adding custom fields, modifying the product edit interface, and extending the WooCommerce REST API.
+This plugin serves as an example of how to extend and customize the VendBase plugin for WooCommerce. It demonstrates various techniques for adding custom fields, modifying the product edit interface, and extending the WooCommerce REST API.
 
-**Note: This plugin requires the WooBase plugin v1.0.9 and up, which must be purchased and installed separately.**
+**Note: This plugin requires the VendBase plugin v1.0.9 and up, which must be purchased and installed separately.**
 
 ## Prerequisites
 
 - WordPress
 - WooCommerce
-- WooBase plugin (purchased separately)
+- VendBase plugin (purchased separately)
 
 ## Installation
 
-1. Ensure that WordPress, WooCommerce, and the WooBase plugin are installed and activated.
+1. Ensure that WordPress, WooCommerce, and the VendBase plugin are installed and activated.
 2. Download this example plugin from the GitHub repository.
 3. Upload the plugin folder to the `/wp-content/plugins/` directory of your WordPress installation.
 4. Activate the plugin through the 'Plugins' menu in WordPress.
@@ -23,10 +23,10 @@ This plugin serves as an example of how to extend and customize the WooBase plug
 
 This example plugin demonstrates the following:
 
-1. Creating a custom Vue component for use with WooBase
+1. Creating a custom Vue component for use with VendBase
 2. Modifying the product edit interface
 3. Adding custom fields to the WooCommerce REST API
-4. Enqueuing custom scripts for use with WooBase
+4. Enqueuing custom scripts for use with VendBase
 
 ## Usage Examples
 
@@ -36,12 +36,12 @@ The plugin defines a custom Vue component that adds a new input field to the pro
 
 ```javascript
 const ExampleComponent = defineComponent({
-  name: "WooBaseCustom",
+  name: "VendBaseCustom",
   // ... (component definition)
   template: `
 	<div class="grid grid-cols-3 pl-4 gap-4 mt-4">
 	  <div class="text-zinc-400 flex flex-col place-content-center"><span>Custom text value</span></div>
-	  <input class="..." type="text" :value="modelValue.woobase_custom_text" @input="updateValue">
+	  <input class="..." type="text" :value="modelValue.vendbase_custom_text" @input="updateValue">
 	</div>
   `,
 });
@@ -53,12 +53,12 @@ The plugin demonstrates how to remove, add, and modify sections in the product e
 
 ```javascript
 // Remove linked products section
-wp.hooks.addFilter("woobase.api.views.products.edit", "removeLinked", (viewSections) => {
+wp.hooks.addFilter("vendbase.api.views.products.edit", "removeLinked", (viewSections) => {
   return viewSections.filter((item) => item.id !== "product_linked_products");
 });
 
 // Add new section
-wp.hooks.addFilter("woobase.api.views.products.edit", "addNewSection", (viewSections) => {
+wp.hooks.addFilter("vendbase.api.views.products.edit", "addNewSection", (viewSections) => {
   const customSection = {
     id: "product_custom_section",
     name: __("Custom section", "customlocale"),
@@ -69,7 +69,7 @@ wp.hooks.addFilter("woobase.api.views.products.edit", "addNewSection", (viewSect
 });
 
 // Add sub-section to existing section
-wp.hooks.addFilter("woobase.api.views.products.edit", "addNewSection", (viewSections) => {
+wp.hooks.addFilter("vendbase.api.views.products.edit", "addNewSection", (viewSections) => {
   return viewSections.map((item) => {
     if (item.id !== "product_summary") return item;
     item.slots.push({ component: ExampleComponent, args: {} });
@@ -83,25 +83,25 @@ wp.hooks.addFilter("woobase.api.views.products.edit", "addNewSection", (viewSect
 The plugin shows how to add custom fields to the WooCommerce products endpoint:
 
 ```php
-function woobase_register_images_field()
+function vendbase_register_images_field()
 {
-  register_rest_field("product", "woobase_custom_text", [
-    "get_callback" => "woobase_get_field",
-    "update_callback" => "woobase_update_field",
+  register_rest_field("product", "vendbase_custom_text", [
+    "get_callback" => "vendbase_get_field",
+    "update_callback" => "vendbase_update_field",
     "schema" => null,
   ]);
 }
 
-add_action("rest_api_init", "woobase_register_images_field");
+add_action("rest_api_init", "vendbase_register_images_field");
 ```
 
 ## Customization
 
-Feel free to modify the provided examples to suit your specific needs. This plugin serves as a starting point for your own WooBase extensions.
+Feel free to modify the provided examples to suit your specific needs. This plugin serves as a starting point for your own VendBase extensions.
 
 ## Support
 
-This is an example plugin intended for educational purposes. For support with the WooBase plugin itself, please refer to the official WooBase documentation and support channels.
+This is an example plugin intended for educational purposes. For support with the VendBase plugin itself, please refer to the official VendBase documentation and support channels.
 
 ## Contributing
 
